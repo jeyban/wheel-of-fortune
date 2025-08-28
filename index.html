@@ -181,7 +181,7 @@
     ];
 
     let spinning = false;
-    const limitOnePerDay = false; // 👈 set to false to allow unlimited spins
+    const limitOnePerDay = true; // 👈 set to false to allow unlimited spins
 
     document.getElementById("spinBtn").onclick = function () {
       if (spinning) return;
@@ -217,7 +217,7 @@ document.getElementById("shareBtn").onclick = function () {
   // Replace this later with your actual website URL once you deploy
   const website = "https://orange-of-fortune.vercel.app/";  
 
-  const text = `My fortune: ${fortune} ✨\n\nCheck it here: ${website}\n\n#Sign #orangefamily`;
+  const text = `My fortune for today: ${fortune} ✨\n\nCheck it here: ${website}\n\n#Sign #orangefamily`;
 
   const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
 
