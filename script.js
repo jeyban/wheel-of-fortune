@@ -56,7 +56,7 @@ donateBtn.addEventListener("click", () => {
     return;
   }
   
-  if (isNaN(amount) || amount < 1 || amount > 200) {
+  if (isNaN(amount)  amount < 1  amount > 200) {
     donationMessage.innerText = "⚠️ Please enter a number between 1 and 200.";
     return;
   }
@@ -66,7 +66,7 @@ donateBtn.addEventListener("click", () => {
   localStorage.setItem("donatedToday", new Date().toDateString());
   
   orangeCount.innerText = totalOranges;
-  donationMessage.innerText =🎉 Thanks for donating ${amount} 🍊!`;
+  donationMessage.innerText = 🎉 Thanks for donating ${amount} 🍊!;
 });
 
 const fortuneHistory = document.getElementById("fortuneHistory");
@@ -96,7 +96,7 @@ function renderHistory() {
 // After spin completes, save fortune
 setTimeout(() => {
   const fortuneText = fortunes[randomIndex];
-  result.innerText =🔮 ${fortuneText}`;
+  result.innerText = 🔮 ${fortuneText};
   addToHistory(fortuneText);
   spinning = false;
 }, 4000);
