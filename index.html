@@ -3,226 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Orange of Fortune</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background: #f5f5f5;
-      margin: 0;
-      padding: 20px;
-    }
-    #wheel {
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      border: 8px solid #444;
-      margin: 20px auto;
-      position: relative;
-      background: conic-gradient(
-        #ff9999 0% 10%, #99ccff 10% 20%, #99ff99 20% 30%, #ffcc99 30% 40%, 
-        #ccccff 40% 50%, #ffff99 50% 60%, #ffb366 60% 70%, #c2f0c2 70% 80%,
-        #ffb3e6 80% 90%, #b3fff0 90% 100%
-      );
-      transition: transform 4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-    }
-
-    #arrow {
-      width: 0;
-      height: 0;
-      border-top: 20px solid transparent;
-      border-bottom: 20px solid transparent;
-      border-left: 30px solid red; /* points right */
-      position: absolute;
-      top: calc(50% - 20px); /* vertically centered */
-      left: -35px; /* placed on the left side */
-    }
-
-    #spinBtn {
-      padding: 10px 20px;
-      font-size: 18px;
-      background: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-    #result {
-      margin-top: 20px;
-      font-size: 20px;
-      font-weight: bold;
-    }
-    #shareBtn {
-      margin-top: 10px;
-      padding: 8px 15px;
-      font-size: 16px;
-      background: #1DA1F2;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      display: none;
-    }
-  </style>
+  <title>Orange of Fortune 🍊</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Orange of Fortune</h1>
-  <div style="position: relative; width: 300px; margin: auto;">
-    <div id="wheel"></div>
-    <div id="arrow"></div>
+  <div class="container">
+    <h1>Orange of Fortune 🍊</h1>
+    <div class="wheel-container">
+      <div class="pointer"></div>
+      <div id="wheel" class="wheel"></div>
+    </div>
+    <button id="spinBtn">🎡 Spin the Wheel</button>
+    <p id="result">Spin to reveal your fortune...</p>
+    <button id="shareBtn">📤 Share to X</button>
   </div>
-  <button id="spinBtn">Spin</button>
-  <div id="result"></div>
-  <button id="shareBtn">Share to X</button>
+  
+  <!-- Fortune History Section -->
+<section class="history">
+  <h2>📜 Your Fortune History</h2>
+  <ul id="fortuneHistory"></ul>
+</section>
 
-  <script>
-    const fortunes = [
-      "Great luck is coming your way!",
-      "Beware of false friends.",
-      "You will receive unexpected money.",
-      "A challenge will test your patience.",
-      "Someone admires you secretly.",
-      "You will lose something valuable.",
-      "Happiness will fill your home.",
-      "An argument is near.",
-      "Your hard work will soon pay off.",
-      "Disappointment may visit you soon.",
-      "A surprise gift awaits you.",
-      "You may face betrayal.",
-      "Your health will improve.",
-      "A stressful period lies ahead.",
-      "Travel will bring good fortune.",
-      "An old mistake will resurface.",
-      "Love will soon knock on your door.",
-      "You may lose a great chance.",
-      "Success is within your reach.",
-      "A storm of troubles may arise.",
-      "You will find something you thought was lost.",
-      "Financial loss is coming.",
-      "A loyal friend will help you.",
-      "Jealousy will cause you pain.",
-      "Opportunities will open up for you.",
-      "Your plans will be delayed.",
-      "New friendships will bloom.",
-      "Beware of making hasty decisions.",
-      "You will win something soon.",
-      "Someone close may deceive you.",
-      "Your kindness will be rewarded.",
-      "You may get sick unexpectedly.",
-      "A dream of yours will come true.",
-      "Be cautious of strangers.",
-      "You will gain wisdom from a mistake.",
-      "A false promise will upset you.",
-      "Your career will take a positive turn.",
-      "Unfinished business will haunt you.",
-      "Your family will bring you joy.",
-      "Someone will speak ill of you.",
-      "Good news will brighten your week.",
-      "Expect a sudden change in plans.",
-      "A romantic moment is near.",
-      "An accident may occur.",
-      "Your creativity will shine.",
-      "A secret will be revealed.",
-      "You will receive praise for your efforts.",
-      "A deal will fall apart.",
-      "Your patience will be rewarded.",
-      "You may face rejection.",
-      "Fortune favors you today.",
-      "Beware of overconfidence.",
-      "You will discover hidden talents.",
-      "A close bond may break.",
-      "Peace will enter your life.",
-      "Trouble may come from afar.",
-      "Someone will make you smile soon.",
-      "Jealousy could harm your happiness.",
-      "Your path is full of hope.",
-      "Bad news may arrive unexpectedly.",
-      "A long-awaited answer is coming.",
-      "You may miss an opportunity.",
-      "New beginnings are ahead.",
-      "Past mistakes may cost you.",
-      "Your strength will inspire others.",
-      "Your trust may be broken.",
-      "Good fortune will follow you.",
-      "An enemy is watching closely.",
-      "Your wishes are within reach.",
-      "Expect delays in your journey.",
-      "A stranger will bring you luck.",
-      "Beware of financial risks.",
-      "A celebration is near.",
-      "A misunderstanding will cause sadness.",
-      "Happiness will find you soon.",
-      "Bad timing will frustrate you.",
-      "Someone special is thinking of you.",
-      "A careless act may hurt you.",
-      "Your future looks promising.",
-      "Envy surrounds you.",
-      "An unexpected ally will help you.",
-      "A bitter truth will come out.",
-      "Love and joy will guide you.",
-      "A warning will be ignored.",
-      "Your energy will attract success.",
-      "Your temper may cause trouble.",
-      "Luck is on your side.",
-      "An unpleasant surprise is near.",
-      "You will feel truly appreciated.",
-      "False hope will linger.",
-      "A journey will change your life.",
-      "An old grudge may resurface.",
-      "Your dreams will inspire others.",
-      "You may face unfair criticism.",
-      "Great achievements are near.",
-      "Bad luck may test your spirit.",
-      "You will soon celebrate a victory.",
-      "Dark clouds may surround you.",
-      "Your determination will pay off.",
-      "Someone will try to mislead you."
-    ];
+  <!-- 🔹 Donation Section -->
+  <section class="donation">
+    <h2>🍊 Donate Oranges</h2>
+    <p>If you love your fortune today, donate some oranges!  
+    This is for fun purposes only ❤️</p>
 
-    let spinning = false;
-    const limitOnePerDay = true; // 👈 set to false to allow unlimited spins
+    <input type="number" id="orangeInput" min="1" max="200" placeholder="Enter 1–200">
+    <button id="donateBtn">🍊 Donate</button>
+    <p id="donationMessage"></p>
+    <p>Total oranges donated today: <span id="orangeCount">0</span> 🍊</p>
+  </section>
 
-    document.getElementById("spinBtn").onclick = function () {
-      if (spinning) return;
+  <!-- 🔹 Builder Credit Section -->
+  <footer class="credits">
+    <p>Built with 🍊 by <strong>Bojjie</strong> | Sign Doctor 🩺💉</p>
+    <div class="socials">
+      <a href="https://x.com" target="_blank">🐦 Twitter</a> |
+      <a href="https://github.com" target="_blank">💻 GitHub</a> |
+      <a href="https://discord.com" target="_blank">💬 Discord</a>
+    </div>
+  </footer>
 
-      if (limitOnePerDay) {
-        if (localStorage.getItem("spunToday") === new Date().toDateString()) {
-          alert("You can only spin once per day!");
-          return;
-        }
-      }
-
-      spinning = true;
-      const wheel = document.getElementById("wheel");
-      const randomIndex = Math.floor(Math.random() * fortunes.length);
-      const degreesPerSlice = 360 / fortunes.length;
-      const stopAngle = 360 * 5 + (360 - (randomIndex * degreesPerSlice + degreesPerSlice / 2));
-
-      wheel.style.transform = `rotate(${stopAngle}deg)`;
-
-      setTimeout(() => {
-        document.getElementById("result").innerText = fortunes[randomIndex];
-        document.getElementById("shareBtn").style.display = "inline-block";
-        if (limitOnePerDay) {
-          localStorage.setItem("spunToday", new Date().toDateString());
-        }
-        spinning = false;
-      }, 4000);
-    };
-
-document.getElementById("shareBtn").onclick = function () {
-  const fortune = document.getElementById("result").innerText;
-
-  // Replace this later with your actual website URL once you deploy
-  const website = "https://orange-of-fortune.vercel.app/";  
-
-  const text = `My fortune for today: ${fortune} ✨\n\nCheck it here: ${website}\n\n#Sign #orangefamily`;
-
-  const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
-
-  window.open(url, "_blank");
-};
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
